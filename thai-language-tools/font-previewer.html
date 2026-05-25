@@ -1,56 +1,147 @@
 <html lang="en">
 <head>
     <title>Thai Font Previewer</title>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fahkwang:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Itim&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Mali:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+Thai:wght@100..900&family=Noto+Serif+Thai:wght@100..900&family=Playpen+Sans+Thai:wght@100..800&family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fahkwang:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Itim&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Mali:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans+Thai:wght@100..900&family=Noto+Serif+Thai:wght@100..900&family=Playpen+Sans+Thai:wght@100..800&family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <style>
-      body {
-  background-color: #333333;
-
-      
-        #preview {
-            font-size: 48px;
-          color: #c2c2c2;
-            margin-top: 20px;
-            padding: 40px;
-            min-height: 60px;
-          background-color: #333333;
+        body {
+            background-color: #333333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
         }
 
-        h2 {color: #c2c2c2;
-           font-family: Inter, sans-serif;
-           text-align: center;}
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
+        .preview-mode {
+            display: flex;
+            gap: 20px;
+        }
+
+        .preview-panel {
+            flex: 1;
+            background-color: #444444;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #preview, #preview-compare {
+            font-size: 48px;
+            color: #c2c2c2;
+            min-height: 100px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #c2c2c2;
+            text-align: center;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #555555;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #666666;
+        }
+
+        select, input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #555555;
+            background-color: #444444;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Thai Font Previewer</h2>
 
-    <h2>Thai Font Previewer</h2>
+        <div class="controls">
+            <input type="text" id="userInput" placeholder="Type something..." oninput="updatePreview()">
+            <select id="fontSelect" onchange="updatePreview()">
+                <option value="Noto Serif Thai">Noto Serif Thai</option>
+                <option value="Noto Sans Thai">Noto Sans Thai</option>
+                <option value="Chakra Petch">Chakra Petch</option>
+                <option value="Fahkwang">Fahkwang</option>
+                <option value="K2D">K2D</option>
+                <option value="Kanit">Kanit</option>
+                <option value="Itim">Itim</option>
+                <option value="KoHo">KoHo</option>
+                <option value="Kodchasan">Kodchasan</option>
+                <option value="Krub">Krub</option>
+                <option value="Mali">Mali</option>
+                <option value="Niramit">Niramit</option>
+                <option value="Playpen Sans Thai">Playpen Sans Thai</option>
+                <option value="Sarabun">Sarabun</option>
+            </select>
 
-    <!-- User types here -->
-    <input type="text" id="userInput" placeholder="Type something..." oninput="updatePreview()">
+            <!-- Second font selector (hidden by default) -->
+            <select id="fontSelectCompare" class="hidden" onchange="updatePreview()">
+                <option value="Noto Serif Thai">Noto Serif Thai</option>
+                <option value="Noto Sans Thai">Noto Sans Thai</option>
+                <option value="Chakra Petch">Chakra Petch</option>
+                <option value="Fahkwang">Fahkwang</option>
+                <option value="K2D">K2D</option>
+                <option value="Kanit">Kanit</option>
+                <option value="Itim">Itim</option>
+                <option value="KoHo">KoHo</option>
+                <option value="Kodchasan">Kodchasan</option>
+                <option value="Krub">Krub</option>
+                <option value="Mali">Mali</option>
+                <option value="Niramit">Niramit</option>
+                <option value="Playpen Sans Thai">Playpen Sans Thai</option>
+                <option value="Sarabun">Sarabun</option>
+            </select>
 
-    <!-- User selects font here -->
-    <select id="fontSelect" onchange="updatePreview()">
-        <option value="Noto Serif Thai">Noto Serif Thai</option>
-      <option value="Noto Sans Thai">Noto Sans Thai</option>
-      <option value="Chakra Petch">Chakra Petch</option>
-<option value="Fahkwang">Fahkwang</option>
-<option value="K2D">K2D</option>
-<option value="Kanit">Kanit</option>
-<option value="Itim">Itim</option>
-<option value="KoHo">KoHo</option>
-<option value="Kodchasan">Kodchasan</option>
-<option value="Krub">Krub</option>
-<option value="Mali">Mali</option>
-<option value="Niramit">Niramit</option>
-<option value="Playpen Sans Thai">Playpen Sans Thai</option>
-<option value="Sarabun">Sarabun</option>
-    </select>
+            <!-- Toggle button -->
+            <div class="toggle-container">
+                <button id="toggleCompare">Compare Fonts</button>
+                <span id="toggleStatus"></span>
+            </div>
+        </div>
 
-    <!-- Word appears here -->
-    <div id="preview">Your text will appear here</div>
+        <!-- Preview panels -->
+        <div class="preview-mode">
+            <div class="preview-panel">
+                <h3>Font Preview</h3>
+                <div id="preview">Your text will appear here</div>
+            </div>
+            <div class="preview-panel hidden" id="comparePanel">
+                <h3>Comparison Font</h3>
+                <div id="preview-compare">Your text will appear here</div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Function to get URL parameters
@@ -67,9 +158,19 @@
             const text = document.getElementById('userInput').value;
             const font = document.getElementById('fontSelect').value;
             const display = document.getElementById('preview');
+            const comparePanel = document.getElementById('comparePanel');
+            const previewCompare = document.getElementById('preview-compare');
 
+            // Update main preview
             display.innerText = text || "Your text will appear here";
             display.style.fontFamily = font;
+
+            // Update comparison preview if in compare mode
+            if (comparePanel && !comparePanel.classList.contains('hidden')) {
+                const fontCompare = document.getElementById('fontSelectCompare').value;
+                previewCompare.innerText = text || "Your text will appear here";
+                previewCompare.style.fontFamily = fontCompare;
+            }
         }
 
         // Function to load URL parameters into the previewer
@@ -96,9 +197,28 @@
             updatePreview();
         }
 
+        // Toggle comparison mode
+        document.getElementById('toggleCompare').addEventListener('click', function() {
+            const comparePanel = document.getElementById('comparePanel');
+            const fontSelectCompare = document.getElementById('fontSelectCompare');
+            const toggleStatus = document.getElementById('toggleStatus');
+
+            if (comparePanel.classList.contains('hidden')) {
+                comparePanel.classList.remove('hidden');
+                fontSelectCompare.classList.remove('hidden');
+                toggleStatus.textContent = 'On';
+                this.textContent = 'Disable Comparison';
+                updatePreview(); // Update comparison preview
+            } else {
+                comparePanel.classList.add('hidden');
+                fontSelectCompare.classList.add('hidden');
+                toggleStatus.textContent = 'Off';
+                this.textContent = 'Compare Fonts';
+            }
+        });
+
         // Load URL parameters when the page loads
         window.onload = loadUrlParams;
     </script>
-
 </body>
 </html>

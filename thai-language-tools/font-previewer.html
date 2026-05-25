@@ -133,11 +133,9 @@
         <!-- Preview panels -->
         <div class="preview-mode">
             <div class="preview-panel">
-                <h3>Font Preview</h3>
                 <div id="preview">Your text will appear here</div>
             </div>
             <div class="preview-panel hidden" id="comparePanel">
-                <h3>Comparison Font</h3>
                 <div id="preview-compare">Your text will appear here</div>
             </div>
         </div>
@@ -206,13 +204,13 @@
             if (comparePanel.classList.contains('hidden')) {
                 comparePanel.classList.remove('hidden');
                 fontSelectCompare.classList.remove('hidden');
-                toggleStatus.textContent = 'On';
+                toggleStatus.textContent = '';
                 this.textContent = 'Disable Comparison';
                 updatePreview(); // Update comparison preview
             } else {
                 comparePanel.classList.add('hidden');
                 fontSelectCompare.classList.add('hidden');
-                toggleStatus.textContent = 'Off';
+                toggleStatus.textContent = '';
                 this.textContent = 'Compare Fonts';
             }
         });

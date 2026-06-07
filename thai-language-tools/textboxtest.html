@@ -22,6 +22,15 @@
            font-family: Inter, sans-serif;
            text-align: center;}
 
+          label[for="largeText"] {
+  font-family: Arial, sans-serif; /* Change font */
+  font-size: 18px; /* Adjust font size */
+  color: #c2c2c2; /* Change text color */
+  font-weight: bold; /* Make text bold */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+
     </style>
 
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -34,15 +43,6 @@
 
 <label for="largeText">Paste your text:</label><br>
 <textarea id="largeText" name="largeText" rows="10" cols="50"></textarea>
-
-  <br><br>
-
-<label for="divText">Paste your text:</label><br>
-<div id="divText" contenteditable="true" style="border: 1px solid #ccc; padding: 10px; min-height: 50px;">
-  You can paste into this div.
-</div>
-
-
   
 </body>
 </html>

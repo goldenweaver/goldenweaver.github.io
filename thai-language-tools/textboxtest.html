@@ -32,8 +32,6 @@
 
 
     </style>
-
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     
 </head>
 <body>
@@ -43,6 +41,131 @@
 
 <label for="largeText">Paste your text:</label><br>
 <textarea id="largeText" name="largeText" rows="10" cols="50"></textarea>
+
+<br>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+<button id="exportBtn" onclick="exportTextToExcel()">Download Excel (.xlsx)</button>
+
+
+    <script>
+function exportTextToExcel() {
+  // Helper function to format milliseconds to timecode
+  function msToTimecode(ms) {
+    if (ms === null || isNaN(ms)) return '';
+    const totalSeconds = Math.floor(ms / 1000);
+    const mil = ms % 1000;
+    const seconds = totalSeconds % 60;
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const minutes = totalMinutes % 60;
+    const hours = Math.floor(totalMinutes / 60);
+    
+    const hStr = String(hours).padStart(2, '0');
+    const mStr = String(minutes).padStart(2, '0');
+    const sStr = String(seconds).padStart(2, '0');
+    const milStr = String(mil).padStart(3, '0');
+    
+    return `${hStr}:${mStr}:${sStr}.${milStr}`;
+  }
+
+  // Get the text box element
+  const textBox = document.getElementById('largeText');
+  if (!textBox) {
+    alert('Text box with ID "largeText" not found!');
+    return;
+  }
+
+  const rawText = textBox.value;
+  if (!rawText) {
+    alert('No text found in the text box to export!');
+    return;
+  }
+
+  const separator = "CDATA";
+  const lines = rawText
+    .split(new RegExp(`\\s*${separator}\\s*`, 'g'))
+    .map(line => line.trim())
+    .filter(line => line.length > 0);
+
+  const data = [];
+  // Add headers
+  data.push(['Line #', 'Raw Start ms', 'Raw End ms', 'Start Timecode', 'End Timecode', 'Text']);
+
+  let lineCounter = 1;
+
+  lines.forEach((line) => {
+    const segments = line.split(/<dia>/).map(s => s.trim()).filter(s => s.length > 0);
+
+    segments.forEach(segment => {
+      const stMatch = segment.match(/<st>(\d+)<\/st>/);
+      const etMatch = segment.match(/<et>(\d+)<\/et>/);
+
+      const rawStartMs = stMatch ? stMatch[1] : '';
+      const rawEndMs = etMatch ? etMatch[1] : '';
+
+      // Clean string formatting
+      let cleanedText = segment
+        .replace(/<st>\d+<\/st>/g, '')
+        .replace(/<et>\d+<\/et>/g, '')
+        .replace(/<[^>]*>/g, '')          
+        .replace(/\[|\]/g, '')            
+        .replace(/^>1604018040<!/, '') 
+        .replace(/<!/g, '')               
+        .replace(/[>][0-9<>!]+/g, '') 
+        .replace(/>+$/, '')               
+        .replace(/\s+/g, ' ')             
+        .trim();
+
+      if (cleanedText === '>') cleanedText = '';
+
+      const startMs = rawStartMs ? parseInt(rawStartMs, 10) : null;
+      const endMs = rawEndMs ? parseInt(rawEndMs, 10) : null;
+
+      const startTimecode = msToTimecode(startMs);
+      const endTimecode = msToTimecode(endMs);
+
+      // Smart Shift-Up System
+      if (!rawStartMs && !rawEndMs && cleanedText && data.length > 1) {
+        const lastRow = data[data.length - 1];
+        if (!lastRow[5] || lastRow[5] === '<!') {
+          lastRow[5] = cleanedText;
+        } else {
+          lastRow[5] = lastRow[5] + ' ' + cleanedText;
+        }
+      } 
+      else if (rawStartMs || rawEndMs || cleanedText) {
+        data.push([
+          lineCounter++,
+          rawStartMs,    
+          rawEndMs,      
+          startTimecode, 
+          endTimecode,   
+          cleanedText
+        ]);
+      }
+    });
+  });
+
+  // Final cleanup sweep for stray elements
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][5] === '<!') {
+      data[i][5] = '';
+    }
+  }
+
+  if (data.length <= 1) {
+    alert('No dialogue data rows were generated. Please check your text format!');
+    return;
+  }
+
+  // Generate and download Excel spreadsheet using SheetJS
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  XLSX.writeFile(wb, 'cleaned_data_final.xlsx');
+}
+        
+    </script>
   
 </body>
 </html>

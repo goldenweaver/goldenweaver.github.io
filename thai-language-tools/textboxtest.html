@@ -42,6 +42,19 @@
 <label for="largeText">Paste your text in this box:</label><br>
 <textarea id="largeText" name="largeText" rows="10" cols="50"></textarea>
 
+    <br>
+
+    <textarea id="largeText"></textarea>
+
+<div style="margin-bottom: 10px;">
+  <label for="fileNameInput">Filename: </label>
+  <input type="text" id="fileNameInput" placeholder="cleaned_data_final">
+  <span>.xlsx</span>
+</div>
+
+<button id="exportBtn" onclick="exportTextToExcel()">Download Excel (.xlsx)</button>
+<button id="copyBtn" onclick="copyCleanedText()">Copy Cleaned Text</button>
+
 <br>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
@@ -153,16 +166,34 @@ function exportTextToExcel() {
     }
   }
 
+  // ... (All your existing parsing code remains exactly the same up to here) ...
+
   if (data.length <= 1) {
     alert('No dialogue data rows were generated. Please check your text format!');
     return;
+  }
+
+  // NEW: Grab the custom filename from the input box
+  const nameInput = document.getElementById('fileNameInput');
+  let customName = nameInput ? nameInput.value.trim() : '';
+
+  // Fallback to a default name if the input box is empty
+  if (!customName) {
+    customName = 'cleaned_data_final';
+  }
+
+  // Ensure we append the .xlsx extension safely
+  if (!customName.endsWith('.xlsx')) {
+    customName += '.xlsx';
   }
 
   // Generate and download Excel spreadsheet using SheetJS
   const ws = XLSX.utils.aoa_to_sheet(data);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  XLSX.writeFile(wb, 'cleaned_data_final.xlsx');
+  
+  // Use the custom name here
+  XLSX.writeFile(wb, customName);
 }
         
     </script>
